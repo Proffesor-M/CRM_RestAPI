@@ -1,0 +1,8 @@
+# JAR_output
+target/
+
+#auto-gen files
+dependency-reduced-pom.xml
+
+#auto-gen folders
+.idea/

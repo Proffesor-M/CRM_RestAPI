@@ -1,0 +1,10 @@
+-Created Project Using Maven Archetype-quick_start
+
+-POM File Modifications
+    Added Used Versions in Property
+    Added Dropwizard Dependency from MAVEN repository
+    Added Shade-Plugin Config(outside of plugin management?) to be used to create JAR
+        Specified Main Class in Manifest Attribute
+
+-Config File
+    Created Dummy Config File
