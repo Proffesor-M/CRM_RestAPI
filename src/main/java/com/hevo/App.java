@@ -1,5 +1,6 @@
 package com.hevo;
 
+import com.hevo.resources.DetailsResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.dropwizard.Application;
@@ -21,6 +22,7 @@ public class App extends Application<DataConfig> {
     public void run(DataConfig c, Environment e) throws Exception {
         LOGGER.info("Method App#run() called");
         System.out.println( "Hello world, by Dropwizard!" );
+        e.jersey().register(new DetailsResource());
     }
 
     public static void main( String[] args ) throws Exception

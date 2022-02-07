@@ -1,5 +1,7 @@
 package com.hevo.resources;
 
+import com.hevo.representation.Employee;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
@@ -11,19 +13,20 @@ public class DetailsResource {
     @Path("/{id}")
     public Response getEmployee(@PathParam("id") int id) {
         // retrieve information about the contact with the provided id
-        return Response.ok("{contact_id: " + id + ", name: \"Dummy Name\", phone: \"+0123456789\" }").build();
+        return Response.ok( new Employee( id, "John", "Doe", "+123456789") ).build();
     }
     @POST
-    public Response createEmployee(@FormParam("name") String name, @FormParam("phone") String phone) {
+    public Response createEmployee(Employee employee) {
         // store the new contact
         return Response.created(null).build();
     }
     @PUT
     @Path("/{id}")
-    public Response updateEmployee(@PathParam("id") int id,@FormParam("name") String name, @FormParam("phone") String phone) {
-        // update the contact with the provided ID
-        return Response.ok("{contact_id: "+ id +", name: \""+ name +"\", phone: \""+ phone +"\" }").build();
+    public Response updateEmployee(@PathParam("id") int id,Employee employee) {
+        //update the contact
+        return Response.ok(new Employee(id,employee.getFirstName(), employee.getLastName(), employee.getPhone())).build();
     }
+
     @DELETE
     @Path("/{id}")
     public Response deleteEmployee(@PathParam("id") int id) {

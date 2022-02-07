@@ -7,4 +7,14 @@
         Specified Main Class in Manifest Attribute
 
 -Config File
-    Created Dummy Config File
+    Created Config.yaml file for envm configuration and DataConfig class to parse it
+
+-Resources Class
+    Contains info about the URI and endpoint exposed for different methods
+    Modified Methods to use representation class instead of hardcoding
+
+-Representation Class
+    Created class with same properties as the output JSON object.
+    It is immutable
+    Jackson will now handle the serialization from POJO to JSON
+    Instead of manual mapping of FORM parm,used Jackson to deserialize the incoming request by only providing resource class object
