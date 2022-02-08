@@ -1,6 +1,8 @@
 package com.hevo.resources;
 
+import com.hevo.dao.EmployeeDAO;
 import com.hevo.representation.Employee;
+import org.skife.jdbi.v2.DBI;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -9,11 +11,17 @@ import javax.ws.rs.core.*;
 @Path("/contact")
 @Produces(MediaType.APPLICATION_JSON)
 public class DetailsResource {
+    private final EmployeeDAO employeeDao;
+
+    public DetailsResource(DBI jdbi) {
+        employeeDao = jdbi.onDemand(EmployeeDAO.class);;
+    }
+
     @GET
     @Path("/{id}")
     public Response getEmployee(@PathParam("id") int id) {
-        // retrieve information about the contact with the provided id
-        return Response.ok( new Employee( id, "John", "Doe", "+123456789") ).build();
+        Employee employee=employeeDao.getEmployeeById(id);
+        return Response.ok(employee).build();
     }
     @POST
     public Response createEmployee(Employee employee) {
