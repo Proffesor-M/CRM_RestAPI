@@ -3,17 +3,18 @@ package com.hevo.resources;
 import com.hevo.dao.EmployeeDAO;
 import com.hevo.representation.Employee;
 import org.skife.jdbi.v2.DBI;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 
-@Path("/contact")
+@Path("/employee")
 @Produces(MediaType.APPLICATION_JSON)
-public class DetailsResource {
+public class EmployeeResource {
     private final EmployeeDAO employeeDao;
 
-    public DetailsResource(DBI jdbi) {
+    public EmployeeResource(DBI jdbi) {
         employeeDao = jdbi.onDemand(EmployeeDAO.class);;
     }
 
@@ -24,22 +25,21 @@ public class DetailsResource {
         return Response.ok(employee).build();
     }
     @POST
-    public Response createEmployee(Employee employee) {
-        // store the new contact
-        return Response.created(null).build();
+    public Response createEmployee(Employee employee) throws URISyntaxException {
+        int newEmployeeId =employeeDao.createEmployee(employee.getFirstName(), employee.getLastName(), employee.getPhone());
+        return Response.created(new URI(String.valueOf(newEmployeeId))).build();
     }
     @PUT
     @Path("/{id}")
     public Response updateEmployee(@PathParam("id") int id,Employee employee) {
-        //update the contact
+        employeeDao.updateEmployee(id, employee.getFirstName(),employee.getLastName(), employee.getPhone());
         return Response.ok(new Employee(id,employee.getFirstName(), employee.getLastName(), employee.getPhone())).build();
     }
 
     @DELETE
     @Path("/{id}")
     public Response deleteEmployee(@PathParam("id") int id) {
-        // delete the contact with the provided id
-        // ...
+        employeeDao.deleteEmployee(id);
         return Response.noContent().build();
     }
 }

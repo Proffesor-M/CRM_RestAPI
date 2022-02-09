@@ -1,6 +1,6 @@
 package com.hevo;
 
-import com.hevo.resources.DetailsResource;
+import com.hevo.resources.EmployeeResource;
 import io.dropwizard.jdbi.DBIFactory;
 import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ public class App extends Application<DataConfig> {
         System.out.println( "Hello world, by Dropwizard!" );
         final DBIFactory factory = new DBIFactory();
         final DBI jdbi = factory.build(e, c.getDataSourceFactory(), "mysql");
-        e.jersey().register(new DetailsResource(jdbi));
+        e.jersey().register(new EmployeeResource(jdbi));
     }
 
     public static void main( String[] args ) throws Exception

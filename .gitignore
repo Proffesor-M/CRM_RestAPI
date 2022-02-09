@@ -6,3 +6,5 @@ dependency-reduced-pom.xml
 
 #auto-gen folders
 .idea/
+
+*.log

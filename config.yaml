@@ -2,4 +2,4 @@ database:
   driverClass: com.mysql.jdbc.Driver
   user: jdbitest
   password: Hevo@123
-  url: jdbc:mysql://localhost/CRM
+  url: jdbc:mysql://localhost:3306/CRM
