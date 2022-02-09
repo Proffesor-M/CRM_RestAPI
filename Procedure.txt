@@ -12,9 +12,35 @@
 -Resources Class
     Contains info about the URI and endpoint exposed for different methods
     Modified Methods to use representation class instead of hardcoding
+    Updated Methods to integrate with mysql using JDBI
+
 
 -Representation Class
     Created class with same properties as the output JSON object.
     It is immutable
     Jackson will now handle the serialization from POJO to JSON
     Instead of manual mapping of FORM parm,used Jackson to deserialize the incoming request by only providing resource class object
+    Used Auth annotation to protect resources using basic auth
+
+-DAO
+    Created Employee DAO for creating Data Access Objects
+    EmployeeDAO is an interface which contains methods corresponding to single sql queries
+    Created EmployeeMapper to map result of sql queries(search queries) to our Employee Entity.
+
+    Created UserDAO for get authentication data of users from the database.
+
+-BasicAuth
+    Used builtin BasicCredential to get client's User and Password instead of custom credential
+    Created CRM_Authenticator to validate user cred with the given cred, Initialized UserDao instance to get cred from database
+    Created a custom principal(UserPrincipal) to get the result from authenticator.
+    Didn't use authorizer for roles(maybe in future work?)
+
+-MainClass(App)
+    Added Resources Environment to incorporate resource class
+
+    Created DBI instance and added it to Resources env to incorporate data transfer from database using JDBI
+
+    Created Auth env
+        Set Authenticator(using previous DBI instance),Realm,Filter
+        Set Binder to provide custom principal to be used in resource class
+

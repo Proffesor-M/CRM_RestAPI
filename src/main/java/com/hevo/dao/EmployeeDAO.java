@@ -14,6 +14,10 @@ public interface EmployeeDAO {
     @SqlQuery("select * from employee where id = :id")
     Employee getEmployeeById(@Bind("id") int id) ;
 
+    /*@Mapper(EmployeeMapper.class)
+    @SqlQuery("select * from employee")
+    Employee getallEmployee() ;*/
+
     @GetGeneratedKeys
     @SqlUpdate("insert into employee (id, firstName, lastName,phone) values (NULL, :firstName, :lastName, :phone)")
     int createEmployee(@Bind("firstName") String firstName, @Bind("lastName") String lastName, @Bind("phone") String phone);
@@ -23,4 +27,5 @@ public interface EmployeeDAO {
 
     @SqlUpdate("delete from Employee where id = :id")
     void deleteEmployee(@Bind("id") int id);
+
 }
